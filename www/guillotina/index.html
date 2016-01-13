@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <link href='css/jquery.guillotine.css' media='all' rel='stylesheet'>
+        <link href='demo.css' media='all' rel='stylesheet'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0, target-densitydpi=device-dpi'>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    </head>
+    <body>
+        <div id='content'>
+            <div class='frame'>
+                <img id='foto' >
+            </div>
+            <div id='controls'>
+                <button id='rotate_left'  type='button' title='Rotate left'> &lt; </button>
+                <button id='zoom_out'     type='button' title='Zoom out'> - </button>
+                <button id='fit'          type='button' title='Fit image'> [ ]  </button>
+                <button id='zoom_in'      type='button' title='Zoom in'> + </button>
+                <button id='rotate_right' type='button' title='Rotate right'> &gt; </button>
+            </div>
+            <ul id='data' >
+                <div class='column'>
+                    <li>x: <span id='x'></span></li>
+                    <li>y: <span id='y'></span></li>
+                </div>
+                <div class='column'>
+                    <li>width:  <span id='w'></span></li>
+                    <li>height: <span id='h'></span></li>
+                </div>
+                <div class='column'>
+                    <li>scale: <span id='scale'></span></li>
+                    <li>angle: <span id='angle'></span></li>
+                </div>
+            </ul>
+        </div>
+        <script src="js/jquery-1.11.0.min.js"></script>
+        <script src="../js/jquery.blockUI.js" type="text/javascript"></script>
+        <script src='js/jquery.guillotine.js'></script>
+        <script type='text/javascript'>
+            jQuery(function () {
+                if (window.localStorage.getItem("editar") == 1) {
+                    jQuery("#controls").show();
+                } else {
+                    jQuery("#controls").hide();
+                }
+                console.log("urlfoto en localstorage=" + window.localStorage.getItem("urlfoto"));
+                jQuery("#foto").attr("src", window.localStorage.getItem("urlfoto"));
+                var picture = $('#foto');
+                //console.log(" en guillotine jrac_crop_width="+window.localStorage.getItem("jrac_crop_width"));
+                var jrac_crop_width = window.localStorage.getItem("jrac_crop_width");
+                var jrac_crop_height = window.localStorage.getItem("jrac_crop_height");
+                var escala = window.localStorage.getItem("escala");
+                var rotar = window.localStorage.getItem("rotar");
+                var jrac_crop_x = window.localStorage.getItem("jrac_crop_x");
+                var jrac_crop_y = window.localStorage.getItem("jrac_crop_y");
+                //ASEGURARNOS QUE LA FOTO SE CARGO "one" ES COMO "on" PERO SOLO SE EJECUTA UNA VEZ
+                picture.one('load', function () {
+                    //SI EL ANCHO ES MANDADO DESDE AFUERA SE COLOCAN LAS MEDIDAS
+                    if (jrac_crop_width > 0) {
+                        picture.guillotine({
+                            eventOnChange: 'guillotinechange',
+                            width: jrac_crop_width,
+                            height: jrac_crop_height,
+                            init: {
+                                scale: escala,
+                                angle: rotar,
+                                x: jrac_crop_x,
+                                y: jrac_crop_y
+                            }
+                        });
+                    }
+                    //SI jrac_crop_width NO ES MAYOR A 0
+                    else {
+                        picture.guillotine({
+                            eventOnChange: 'guillotinechange',
+                            width: 1140,
+                            height: 690
+                        });
+                    }
+                    //COLOCA EN LOS LABEL LOS DATOS DE X,Y,ANCHO DEL CROP,ALTO DEL CROP,ANCHO , ALTO, GRADOS Y ESCALA
+                    var data = picture.guillotine('getData');
+                    for (var key in data) {
+                        $('#' + key).html(data[key]);
+                    }
+                    //MUEVE LA IMAGEN A LA IZQUIERDA
+                    $('#rotate_left').click(function () {
+                        picture.guillotine('rotateLeft');
+                    });
+                    //MUEVE LA IMAGEN A LA DERECHA
+                    $('#rotate_right').click(function () {
+                        picture.guillotine('rotateRight');
+                    });
+                    //MUEVE LA IMAGEN A LA AJUSTA LA IMAGEN EN ANCHO Y ALTO
+                    $('#fit').click(function () {
+                        picture.guillotine('fit');
+                    });
+                    //HACE UN ZOOM HACIA ADENTRO
+                    $('#zoom_in').click(function () {
+                        picture.guillotine('zoomIn');
+                    });
+                    //HACE UN ZOOM HACIA AFUERA
+                    $('#zoom_out').click(function () {
+                        picture.guillotine('zoomOut');
+                    });
+                    //DETECTA CUANDO SE CAMBIAN LOS DATOS Y LOS GURDA EN LA BD
+                    picture.on('guillotinechange', function (ev, data, action) {
+                        data.scale = parseFloat(data.scale.toFixed(4));
+                        for (var k in data) {
+                            $('#' + k).html(data[k]);
+                        }
+                        var width = picture.width();
+                        var height = picture.height();
+                        if (width > $("#w").text()) {
+                            width = $("#w").text();
+                        }
+                        window.localStorage.setItem("jrac_crop_x", $("#x").text());
+                        window.localStorage.setItem("jrac_crop_y", $("#y").text());
+                        window.localStorage.setItem("jrac_crop_width", $("#w").text());
+                        window.localStorage.setItem("jrac_crop_height", $("#h").text());
+                        window.localStorage.setItem("jrac_image_width", width);
+                        window.localStorage.setItem("jrac_image_height", height);
+                        window.localStorage.setItem("rotar", $("#angle").text());
+                        window.localStorage.setItem("escala", $("#scale").text());
+                    });
+                });
+                //SE ASEGURA QUE LA IMAGEN CARGO Y HABILITA LA EJECUCION DE LOS EVENTOS
+                if (picture.prop('complete')) {
+                    picture.trigger('load');
+                }
+                //TOMA DLOS DATOS DE LAS VARIABLES Y LAS PONE EN LOS TEXTS
+                var width = picture.width();
+                var height = picture.height();
+                if (width > $("#w").text()) {
+                    width = $("#w").text();
+                }
+                window.localStorage.setItem("jrac_crop_x", $("#x").text());
+                window.localStorage.setItem("jrac_crop_y", $("#y").text());
+                window.localStorage.setItem("jrac_crop_width", $("#w").text());
+                window.localStorage.setItem("jrac_crop_height", $("#h").text());
+                window.localStorage.setItem("jrac_image_width", width);
+                window.localStorage.setItem("jrac_image_height", height);
+                window.localStorage.setItem("rotar", $("#angle").text());
+                window.localStorage.setItem("escala", $("#scale").text());
+            });
+
+        </script>
+    </body>
+</html>

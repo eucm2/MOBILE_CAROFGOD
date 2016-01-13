@@ -1,0 +1,37 @@
+/* clearfix */
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+.clearfix {
+    display: inline-block;
+}
+html[xmlns] .clearfix {
+    display: block;
+}
+* html .clearfix {
+    height: 1%;
+}
+.pane>table {
+    margin:1em;
+}
+.pane>table td {
+    text-align: right;
+    padding-right: .5em;
+}
+pre.code {
+    padding:1em;
+    margin:0;
+    background-color: #eee;
+    border:1px dashed #ccc;
+}
+/* Override some jrac css */
+.jrac_viewport {
+    /* width:800px; */
+    /* height:700px; */
+}
+

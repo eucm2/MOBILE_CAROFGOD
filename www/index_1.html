@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Carofgod</title>
+        <link href="css/Aristo.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/roboto.min.css" rel="stylesheet">
+        <link href="css/material-fullpalette.css" rel="stylesheet">
+        <link href="css/ripples.min.css" rel="stylesheet">
+        <link href="css/tonoVerde.css" rel="stylesheet">
+        <link href="css/index.css" rel="stylesheet" type="text/css" />
+        <link href="css/tipsy.css" rel="stylesheet" type="text/css" />
+        <link href="css/question.css" rel="stylesheet" type="text/css" />
+        <!--        <link href='guillotina/demo.css' media='all' rel='stylesheet'/>-->
+        <!--        <link href='guillotina/css/jquery.guillotine.css' media='all' rel='stylesheet'>-->
+    </head>
+    <body>
+        <div class="header-panel shadow-z-2">
+            <div class="container-fluid">
+                <div class="row" id="cabecera">
+                    <div class="col-xs-3">
+                        <button class="btn btn-fab btn-raised btn-primary botonMenu" data-target="#pageConfig" id="botonConfig" style="float: left;" ><i class="mdi-action-perm-identity"></i>  <div class="ripple-wrapper"></div></button>
+                    </div>
+                    <div class="col-xs-3 con-home">
+                        <button class="btn btn-fab btn-raised btn-primary botonMenu"  data-target="#principal" id="botonPrincipal" ><i class="mdi-action-home"></i>  <div class="ripple-wrapper"></div></button>
+                    </div>
+                    <div class="col-xs-3">
+                        <button class="btn btn-fab btn-raised btn-primary botonMenu"  data-target="#pageAgregar" id="nuevo" style="float: right;" ><i class="mdi-content-add"></i>  <div class="ripple-wrapper"></div></button>
+                    </div>
+                    <div class="col-xs-3">
+                        <button class="btn btn-fab btn-raised btn-primary botonMenu link" rel='http://www.someurl.com' id="abrirFuera" style="float: right;" ><i class="mdi-action-open-in-new"></i>  <div class="ripple-wrapper"></div></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid main">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div style="text-align: center;">
+                        <img src="images/logo.png" id="imagen_logo"  />
+                    </div>
+                    <div id="principal" class="well page active">
+                        <input type="text"  id="buscadorListas" class="form-control floating-label" placeholder="Search" style="margin-bottom: 10px;"/>
+                        <ul id="lista" ></ul>
+                        <div class="con_paginador">
+                            <ul id="paginador">
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="pageConfig" class="well page"  >
+                        <div class="inputs">
+                            <input type="text" class="form-control floating-label requerido input_config" id="web" placeholder="Website URL: http://example.carofgod.com" value="http://"/>
+                            <input type="text" class="form-control floating-label requerido input_config" id="user" placeholder="Username"/>
+                            <input type="password" class="form-control floating-label requerido input_config" id="pass" placeholder="Password"/>
+                            <div style="text-align: right;margin-top: 20px;">
+                                <button class="btn btn-default btn-flat cancelConfig"><i class="mdi-navigation-close"></i> Cancel</button>
+                                <button class="btn btn-primary btn-flat"  id="editarConfig"><i class="mdi-navigation-check"></i> Ok</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- AREA PARA AGREGAR O EDITAR FOTOS-->
+                    <div id="pageAgregar" class="well page"  >
+                        <div style="margin-top: 10px;margin-bottom:30px;">
+                            <div style="display: inline-block; margin-top: 12px;">
+                                <h3 style="margin-top: 0px;margin-bottom: 0px;" id="titulodialog" >Add</h3>
+                            </div>
+                            <div id="contenedorFoto" style="text-align: right;display: inline-block;float: right;" >
+                                <button class="btn btn-fab btn-raised btn-primary" id="tomarfoto" style="display: inline-block;"><i class="mdi-image-camera-alt"></i><div class="ripple-wrapper"></div></button>
+                                <button class="btn btn-fab btn-raised btn-primary" id="selecfoto" style="display: inline-block;"><i class="mdi-image-panorama"></i>  <div class="ripple-wrapper"></div></button>
+                            </div>
+                        </div>
+                        <div class="inputs">
+                            <image src="" id="urlfoto" style="height: 200px;"/>
+                            <div data-role="fieldcontain" style="text-align: center;margin-bottom:30px;">
+                                <iframe id="gillotina" src="guillotina/index.html"  frameborder="0" width="100%" height="450px;" ></iframe>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control floating-label requerido texto" id="marca" placeholder="Maker"/>
+                        <input type="text" class="form-control floating-label requerido texto" id="modelo" placeholder="Model"/>
+                        <input type="tel" class="form-control floating-label requerido texto" id="dealer_price" placeholder="Price"/>
+                        <select  id="condition_list" class="form-control floating-label requerido texto" placeholder="Condition list">
+                            <option value=""></option>
+                            <option value="Used">Used</option>
+                            <option value="New">New</option>
+                        </select>
+                        <input type="tel" class="form-control floating-label texto" id="mileage"  placeholder="Mileage"/>
+                        <input type="tel" class="form-control floating-label texto" id="year_of_issue"  placeholder="Year of issue"/>
+                        <input type="text" class="form-control floating-label texto" id="vin" placeholder="VIN"/>
+                        <input type="text" class="form-control floating-label texto" id="bodystyle" placeholder="Body style"/>
+                        <input type="tel" class="form-control floating-label texto" id="doors" placeholder="Doors"/>
+                        <input type="text" class="form-control floating-label texto" id="engine" placeholder="Engine"/>
+                        <input type="text" class="form-control floating-label texto" id="transmission" placeholder="Transmission"/>
+                        <input type="text" class="form-control floating-label texto" id="drive_line" placeholder="Drive line"/>
+                        <input type="text" class="form-control floating-label texto" id="fuel_type" placeholder="Fuel type"/>
+                        <input type="text" class="form-control floating-label texto" id="exterior_color" placeholder="Exterior color"/>
+                        <input type="tel" class="form-control floating-label texto" id="city_mpg" placeholder="City mpg"/>
+                        <input type="tel" class="form-control floating-label texto" id="hwy_mpg" placeholder="Hwy mpg"/>
+                        <input type="text" class="form-control floating-label texto" id="interior_color" placeholder="Interior color"/>
+                        <input type="text" class="form-control floating-label texto" id="nota" placeholder="Special Note"/>
+                        <div style="text-align: right;margin-top: 20px;">
+                            <button class="btn btn-default btn-flat cancelConfig"><i class="mdi-navigation-close"></i> Cancel</button>
+                            <button class="btn btn-primary btn-flat"  id="agregar"><i class="mdi-navigation-check"></i> Ok</button>
+                            <button class="btn btn-primary btn-flat"  id="editar"><i class="mdi-navigation-check"></i> Ok</button>
+                        </div>
+                    </div>
+                    <input type="hidden" id="idEditar" placeholder="idEditar" style="font-size: 5px;"/>
+                    <input type="hidden" id="urlfoto" placeholder="urlfoto" style="font-size: 5px;"/>
+                    <input type="hidden" id="subido" placeholder="subido" style="font-size: 5px;"/>
+                </div>
+
+
+                <div id="pageVer" class="well page"  >
+                    <div data-role="header">
+                        <h3 id="titulodialog">View</h3>
+                    </div>
+                    <div data-role="content">
+                        <div id="contenedor_imagen">
+                            <img id="ver_urlfoto" style="display: none;" />
+                            <iframe id="gillotina_ver_foto" src="guillotina/index.html"  frameborder="0" width="100%" height="400px;" ></iframe>
+                        </div>
+                        <div id="photogallery">
+                        </div>
+                        <div style="clear: both;"></div>
+                        <table id="tabla_view">
+                            <tr class="con_label">
+                                <td class="titulo">Maker</td>
+                                <td class="ver" id="ver_marca"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Model</td>
+                                <td class="ver" id="ver_modelo"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Price</td>
+                                <td class="ver" id="ver_dealer_price"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">VIN</td>
+                                <td class="ver" id="ver_vin"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Body style</td>
+                                <td class="ver" id="ver_bodystyle"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Doors</td>
+                                <td class="ver" id="ver_doors"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Engine</td>
+                                <td class="ver" id="ver_engine"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Transmission</td>
+                                <td class="ver" id="ver_transmission"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Drive line</td>
+                                <td class="ver" id="ver_drive_line"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Fuel type</td>
+                                <td class="ver" id="ver_fuel_type"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Exterior color</td>
+                                <td class="ver" id="ver_exterior_color"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">City mpg</td>
+                                <td class="ver" id="ver_city_mpg"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Hwy mpg</td>
+                                <td class="ver" id="ver_hwy_mpg"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Interior color</td>
+                                <td class="ver" id="ver_interior_color"></td>
+                            </tr>
+                            <tr class="con_label">
+                                <td class="titulo">Special Note</td>
+                                <td class="ver" id="ver_nota"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="text-align: right;margin-top: 20px;">
+                        <button class="btn btn-default btn-flat cancelConfig">
+                            <i class="mdi-navigation-close"></i> Go back<div class="ripple-wrapper"><div class="ripple ripple-on ripple-out" style="left: 66.3693px; top: 20.2472px; transform: scale(14.5); background-color: rgb(237, 28, 36);"></div></div>
+                        </button>
+                    </div>
+                    <input type="hidden" id="idVer" placeholder="idVer" style="font-size: 5px;"/>
+                </div>
+
+
+                <div id="pageMas" class="well page"  >
+                    <div data-role="header" style="margin-top: 10px;  margin-bottom: 15px;">
+                        <h3 id="titulodialog" style="display: inline-block;">Add</h3>
+                        <div id="contenedorFoto" style="text-align: right;float: right;">
+                            <button class="btn btn-fab btn-raised btn-primary" id="agregarFotoDina" style="display: inline-block;"><i class="mdi-image-camera-alt"></i><div class="ripple-wrapper"></div></button>
+                            <button class="btn btn-fab btn-raised btn-primary" id="selecFotoDina" style="display: inline-block;"><i class="mdi-image-panorama"></i>  <div class="ripple-wrapper"></div></button>
+                        </div>
+                    </div>
+                    <div data-role="content">
+                        <ul data-role="listview" id="listafotos" data-inset="true" data-filter="true" data-filter-placeholder="Search car...">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.floatingmessage.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/material.min.js"></script>
+<script src="js/ripples.min.js"></script>
+<script src="js/jquery.blockUI.js" type="text/javascript"></script>
+<script src="js/jquery.liveFilter.js" type="text/javascript"></script>
+<script src="js/fastclick.js" type="text/javascript"></script>
+<script src="js/jquery.tipsy.js" type="text/javascript"></script>
+<script src='guillotina/js/jquery.guillotine.js'></script>
+<script src="cordova.js" type="text/javascript"></script>
+<script src="js/db.js" type="text/javascript" ></script>
+<script>
+    $.material.init();
+</script>
+
